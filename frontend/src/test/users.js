@@ -1,4 +1,4 @@
-const users = [
+export const usersTest = [
     {
         name: "Lucas",
         age: 25,
@@ -160,3 +160,43 @@ const users = [
         state: "MT"
     }
 ];
+
+function generateUsers() {
+    const users = [];
+    let userId = 1;
+    const cities = ["São Paulo", "Rio de Janeiro", "Salvador", "Belo Horizonte", "Brasília", "Fortaleza", "Curitiba", "Recife", "Goiânia", "Manaus"];
+    const states = ["SP", "RJ", "BA", "MG", "DF", "CE", "PR", "PE", "GO", "AM"];
+
+    for (let i = 0; i < 50; i++) {
+        const index = i % 10;
+        const city = cities[index];
+        const state = states[index];
+
+        users.push({
+            name: `User ${userId}`,
+            age: Math.floor(Math.random() * 20) + 20, // Random age between 20 and 39
+            email: `user${userId}@example.com`,
+            address: `Address ${userId}`,
+            city: city,
+            state: state
+        });
+
+        userId++;
+    }
+
+    return users;
+}
+
+export function getUsers() {
+    // Cria a lista de usuários
+    const users = generateUsers();
+
+    // Divide a lista de usuários em partes de 10 itens
+    const usersChunks = [];
+    for (let i = 0; i < users.length; i += 10) {
+        usersChunks.push(users.slice(i, i + 10));
+    }
+    return usersChunks;
+}
+
+

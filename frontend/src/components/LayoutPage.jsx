@@ -7,33 +7,33 @@ import PathConstants from "../routes/pathConstants";
 const { Header, Footer } = Layout;
 
 export default function LayoutPage() {
-    return (
-        <Layout style={{ maxHeight: '100vh' }}>
-            <Header style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="logo" />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['1']}
-                    style={{ flex: 1, minWidth: 0 }}>
-                    <Menu.Item key="1">
-                        <Link to={PathConstants.USERS}>Usuarios</Link>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <Link to={PathConstants.INSERT_USER}>Inserir usuario</Link>
-                    </Menu.Item>
-                </Menu>
-            </Header>
-            <main style={{ position: "relative", height: "100vh" }}>
-                <Suspense fallback={<div>Loading...</div>}>
-                    <Outlet />
-                </Suspense>
-            </main>
-            <Footer style={{ textAlign: 'center' }}>
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
-            </Footer>
-        </Layout>
-    )
+  return (
+    <Layout style={{ maxHeight: '100vh' }}>
+      <Header style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['1']}
+          style={{ flex: 1, minWidth: 0, fontSize: '22px' }}>
+          <Menu.Item key="1">
+            <Link to={PathConstants.USERS}>Usuarios</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to={PathConstants.INSERT_USER}>Inserir usuario</Link>
+          </Menu.Item>
+        </Menu>
+      </Header>
+      <main style={{ position: "relative", height: "100vh", overflow: 'scroll', paddingBottom: '20px' }}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </main>
+      <Footer style={{ textAlign: 'center' }}>
+        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+      </Footer>
+    </Layout>
+  )
 }
 
 {/* <Layout>

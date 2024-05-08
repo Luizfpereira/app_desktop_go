@@ -4,18 +4,20 @@ import (
 	"context"
 	"log"
 	"respirar/db"
+	"respirar/models"
 	"respirar/repo"
+	"respirar/service"
 )
 
 // App struct
 type App struct {
-	ctx context.Context
-	userService UserService
+	ctx         context.Context
+	userService service.UserService
 }
 
 // NewApp creates a new App application struct
-func NewApp(userService UserService) *App {
-	return &App{userService: userService}
+func NewApp() *App {
+	return &App{}
 }
 
 // startup is called when the app starts. The context is saved
@@ -27,5 +29,20 @@ func (a *App) startup(ctx context.Context) {
 	if err != nil {
 		log.Fatalf("error getting db connection: %v", err)
 	}
-	usersRepo := repo
+	if err := db.Migrate(dbConn); err != nil {
+		log.Fatalf("error migrating database: %v", err)
+	}
+
+	userRepo := repo.NewUsersRepo(dbConn)
+	userService := service.NewUserService(userRepo)
+	a.userService = userService
+}
+
+func (a *App) GetUsers(limit, offset int) ([]models.User, error) {
+	users, err := a.userService.GetUsers(limit, offset)
+	if err != nil {
+		log.Printf("error getting users: %v", err)
+		return nil, err
+	}
+	return users, err
 }

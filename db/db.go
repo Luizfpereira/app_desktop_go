@@ -1,17 +1,21 @@
 package db
 
 import (
-	"database/sql"
 	"log"
 	"os"
+	"respirar/models"
 	"sync"
+
+	_ "github.com/mattn/go-sqlite3"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 const dbName string = "main.db"
 
 var (
 	dbConnOnce sync.Once
-	conn       *sql.DB
+	conn       *gorm.DB
 	errInit    error
 )
 
@@ -29,18 +33,46 @@ func InitDB() {
 }
 
 func initializeConnection() {
-	sqlConn, err := sql.Open("sqlite3", dbName)
+	db, err := gorm.Open(sqlite.Open("main.db"), &gorm.Config{})
 	if err != nil {
 		errInit = err
 		return
 	}
-	conn = sqlConn
+	conn = db
 }
 
-func GetConnection() (*sql.DB, error) {
+func GetConnection() (*gorm.DB, error) {
 	dbConnOnce.Do(initializeConnection)
 	if errInit != nil {
 		return nil, errInit
 	}
 	return conn, nil
+}
+
+func Migrate(instance *gorm.DB) error {
+	err := instance.AutoMigrate(&models.User{})
+	if err != nil {
+		return err
+	}
+	log.Println("Database migration completed!")
+	generateUsers(instance)
+	return nil
+}
+
+func generateUsers(conn *gorm.DB) {
+	for i := 1; i <= 20; i++ {
+		user := models.User{
+			Name:       "User" + string(i),
+			Age:        25 + i,
+			Email:      "user" + string(i) + "@example.com",
+			Address:    "Street " + string(i),
+			City:       "City " + string(i),
+			State:      "State " + string(i),
+			Profession: "Profession " + string(i),
+		}
+
+		if err := conn.Create(&user).Error; err != nil {
+			log.Printf("Error inserting user %d: %v", i, err)
+		}
+	}
 }

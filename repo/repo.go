@@ -1,28 +1,28 @@
 package repo
 
 import (
-	"database/sql"
-	"log"
+	"respirar/models"
+
+	"gorm.io/gorm"
 )
 
-type UsersRepo struct {
-	dbConn *sql.DB
+type UserRepo struct {
+	conn *gorm.DB
 }
 
-func NewUsersRepo(dbConn *sql.DB) *UsersRepo {
-	return &UsersRepo{dbConn: dbConn}
+type UserRepository interface {
+	SearchUsers(limit, offset int) ([]models.User, error)
 }
 
-func (r *UsersRepo) CreateTable(query string) error {
-	statement, err := r.dbConn.Prepare(query) // Prepare SQL Statement
-	if err != nil {
-		return err
+func NewUsersRepo(conn *gorm.DB) UserRepository {
+	return &UserRepo{conn: conn}
+}
+
+func (r *UserRepo) SearchUsers(limit, offset int) ([]models.User, error) {
+	var users []models.User
+	result := r.conn.Find(users).Limit(limit).Offset(offset)
+	if result.Error != nil {
+		return nil, result.Error
 	}
-	statement.Exec() // Execute SQL Statements
-	log.Println("table successfully created")
-	return nil
-}
-
-func (r *UsersRepo) InsertManyUsersTest() error {
-	return nil
+	return users, nil
 }

@@ -1,0 +1,78 @@
+.sidebar {
+    width: 256px;
+    background-color: #FBFDFF;
+    position: absolute;
+    margin-top: 1px;
+    height: calc(100vh - 101px);
+}
+
+.select {
+    margin-top: 35px;
+    font-size: 24px;
+    color: #8A8B8C;
+    display: flex;
+    justify-content: center;
+}
+
+.select:hover {
+    color: #00418E;
+    cursor: pointer;
+}
+
+.select.active {
+    background-color: #0063c633;
+    color: #00418E;
+}
+
+.select-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.select-main.active {
+    background-color: #0063c633;
+    color: #00418E;
+}
+
+.select-options {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #8A8B8C;
+    font-size: 18px;
+    /* float: left; */
+    justify-content: left;
+    /* text-align: left; */
+}
+
+.select-options.hide {
+    display: none;
+}
+
+.subitem {
+    margin: 20px 0;
+}
+
+.subitem:hover {
+    color: #00418E;
+    cursor: pointer;
+}
+
+.subitem.active {
+    color: #00418E;
+}
+
+/* .select-options div {
+    margin: 20px 0;
+}
+
+.select-options div:hover {
+    color: #00418E;
+    cursor: pointer;
+}
+
+.select-options div .active {
+    color: #00418E;
+} */

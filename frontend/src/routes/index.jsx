@@ -6,8 +6,9 @@ const InsertUser = React.lazy(() => import("../pages/InsertUser"))
 const Users = React.lazy(() => import("../pages/Users"))
 
 const routes = [
-    { path: PathConstants.USERS, element: <Users /> },
+
     { path: PathConstants.INSERT_USER, element: <InsertUser /> },
+    { path: PathConstants.USERS, element: <Users /> },
 ]
 
 export default routes

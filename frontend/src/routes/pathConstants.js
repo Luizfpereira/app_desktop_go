@@ -1,6 +1,7 @@
 const PathConstants = {
+    INSERT_USER: "/insert",
     USERS: "/",
-    INSERT_USER: "/insert"
+
 }
 
 export default PathConstants

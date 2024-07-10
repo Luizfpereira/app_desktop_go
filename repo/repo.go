@@ -20,7 +20,7 @@ func NewUsersRepo(conn *gorm.DB) UserRepository {
 
 func (r *UserRepo) SearchUsers(limit, offset int) ([]models.User, error) {
 	var users []models.User
-	result := r.conn.Find(users).Limit(limit).Offset(offset)
+	result := r.conn.Find(&users).Limit(limit)
 	if result.Error != nil {
 		return nil, result.Error
 	}

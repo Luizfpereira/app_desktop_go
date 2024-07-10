@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"respirar/models"
+	"strconv"
 	"sync"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -62,13 +63,13 @@ func Migrate(instance *gorm.DB) error {
 func generateUsers(conn *gorm.DB) {
 	for i := 1; i <= 20; i++ {
 		user := models.User{
-			Name:       "User" + string(i),
+			Name:       "User" + strconv.Itoa(i),
 			Age:        25 + i,
-			Email:      "user" + string(i) + "@example.com",
-			Address:    "Street " + string(i),
-			City:       "City " + string(i),
-			State:      "State " + string(i),
-			Profession: "Profession " + string(i),
+			Email:      "user" + strconv.Itoa(i) + "@example.com",
+			Address:    "Street " + strconv.Itoa(i),
+			City:       "City " + strconv.Itoa(i),
+			State:      "State " + strconv.Itoa(i),
+			Profession: "Profession " + strconv.Itoa(i),
 		}
 
 		if err := conn.Create(&user).Error; err != nil {

@@ -2,6 +2,10 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
     "antd": "^5.16.4",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "typeface-roboto": "^1.1.13"
+  },
+  "devDependencies": {
+    "@iconify/react": "^5.0.1"
   }
 }

@@ -6,6 +6,7 @@ export default function InsertUser() {
   const [inputs, setInputs] = useState({});
   const [disabled, setDisabled] = useState(true);
   const [empty, setEmpty] = useState({ name: false, email: false });
+  const [errorMessages, setErrorMessages] = useState([]);
 
   function convertDatesToISOFormat(dates) {
     return dates.map((date) => {
@@ -61,48 +62,69 @@ export default function InsertUser() {
     }
   };
 
-  function existEmptyFields() {
-    let exist = false;
+  function validateFields() {
+    const errors = [];
+
     let emptyFields = {
       name: false,
       email: false,
     };
 
     if (!inputs.name) {
+      errors.push("Nome é requerido");
       emptyFields.name = true;
-      exist = true;
     }
 
     if (!inputs.email) {
+      errors.push("Email é requerido");
       emptyFields.email = true;
-      exist = true;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(inputs.email)
+    ) {
+      errors.push("Email inválido");
     }
+
     setEmpty(emptyFields);
 
-    return exist;
+    if (errors.length > 0) {
+      throw new Error(errors.join("; "));
+    }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (existEmptyFields()) {
-      return;
+    try {
+      validateFields();
+      const dates = [inputs.birth_date, inputs.assessment_date];
+      const isoDates = convertDatesToISOFormat(dates);
+      const updatedInputs = {
+        ...inputs,
+        birth_date: isoDates[0],
+        assessment_date: isoDates[1],
+      };
+      CreateUser(updatedInputs);
+      setInputs({});
+      setErrorMessages([]);
+    } catch (err) {
+      const errorMessages = err.message.split("; ");
+      setErrorMessages(errorMessages);
     }
-
-    const dates = [inputs.birth_date, inputs.assessment_date];
-    const isoDates = convertDatesToISOFormat(dates);
-    const updatedInputs = {
-      ...inputs,
-      birth_date: isoDates[0],
-      assessment_date: isoDates[1],
-    };
-    CreateUser(updatedInputs);
-    setInputs({});
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        {/* Display Error Messages */}
+        {errorMessages.length > 0 && (
+          <div className="error-messages">
+            <ul>
+              {errorMessages.map((error, index) => (
+                <li key={index}>* {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {/* Nome */}
         <div className="input-table">
           <div className="input-group">
@@ -129,7 +151,7 @@ export default function InsertUser() {
               placeholder="Ex.: seuemail@exemplo.com"
               value={inputs.email || ""}
               onChange={handleChange}
-              className="input-box"
+              className={`input-box ${empty.email === true ? "empty" : ""}`}
             />
           </div>
           <div className="input-group">

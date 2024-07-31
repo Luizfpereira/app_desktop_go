@@ -12,6 +12,7 @@
     color: #8A8B8C;
     display: flex;
     justify-content: center;
+    
 }
 
 .select:hover {
@@ -28,8 +29,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    text-decoration: inherit;
+    color: inherit;
+    width: 100%;
+}
+
+.select-main-reduced {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px; 
+    padding-bottom: 5px;
     text-decoration: inherit;
     color: inherit;
     width: 100%;

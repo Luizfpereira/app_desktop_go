@@ -60,10 +60,13 @@ export default function Sidebar() {
         </div>
         <div
           className={`select ${activeItem === "Cadastrar" ? "active" : ""}`}
-          onClick={() => handleItemClick("Cadastrar")}
           key={"Cadastrar"}
         >
-          <Link to={PathConstants.INSERT_USER} className="select-main">
+          <Link
+            to={PathConstants.INSERT_USER}
+            className="select-main"
+            onClick={() => handleItemClick("Cadastrar")}
+          >
             <Icon icon="mdi:user" style={{ marginRight: "10px" }} />
             Cadastrar
           </Link>
@@ -84,7 +87,7 @@ function SidebarOption(props) {
       onClick={() => handleOptionClick(props.Name)}
       key={props.Name}
     >
-      <Link to={props.Path} className="select-main">
+      <Link to={props.Path} className="select-main-reduced">
         {props.Name}
       </Link>
     </div>

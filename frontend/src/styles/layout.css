@@ -35,6 +35,8 @@
     margin-right: 10px;
     width: 100vw;
     height: calc(100vh - 120px);
+    /* height: 100%; */
     background-color: #FBFDFF;
     border-radius: 10px;
+    overflow: scroll;
 }

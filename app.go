@@ -46,3 +46,12 @@ func (a *App) GetUsers(limit, offset int) ([]models.User, error) {
 	}
 	return users, err
 }
+
+func (a *App) CreateUser(user *models.User) (*models.User, error) {
+	user, err := a.userService.CreateUser(user)
+	if err != nil {
+		log.Printf("error creating user: %v", err)
+		return nil, err
+	}
+	return user, err
+}

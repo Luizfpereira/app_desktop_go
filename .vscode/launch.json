@@ -1,0 +1,25 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Go",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/main.go", // Ajuste para o caminho do seu arquivo Go principal
+            "env": {},
+            "args": [],
+            "showLog": true
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Iniciar o Chrome em relação a localhost",
+            "url": "http://localhost:34115",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

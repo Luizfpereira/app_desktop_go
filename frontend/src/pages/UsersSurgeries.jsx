@@ -4,7 +4,7 @@ import { getUsers } from "../test/users"
 import { Pagination } from 'antd';
 import { GetUsers } from '../../wailsjs/go/main/App'
 
-export default function Users() {
+export default function UsersSurgeries() {
 
     return (
         <div style={{ color: "black" }}>

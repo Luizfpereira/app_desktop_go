@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"respirar/models"
-	"strconv"
 	"sync"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -56,24 +55,24 @@ func Migrate(instance *gorm.DB) error {
 		return err
 	}
 	log.Println("Database migration completed!")
-	generateUsers(instance)
+	// generateUsers(instance)
 	return nil
 }
 
-func generateUsers(conn *gorm.DB) {
-	for i := 1; i <= 20; i++ {
-		user := models.User{
-			Name:       "User" + strconv.Itoa(i),
-			Age:        25 + i,
-			Email:      "user" + strconv.Itoa(i) + "@example.com",
-			Address:    "Street " + strconv.Itoa(i),
-			City:       "City " + strconv.Itoa(i),
-			State:      "State " + strconv.Itoa(i),
-			Profession: "Profession " + strconv.Itoa(i),
-		}
+// func generateUsers(conn *gorm.DB) {
+// 	for i := 1; i <= 20; i++ {
+// 		user := models.User{
+// 			Name:       "User" + strconv.Itoa(i),
+// 			Age:        25 + i,
+// 			Email:      "user" + strconv.Itoa(i) + "@example.com",
+// 			Address:    "Street " + strconv.Itoa(i),
+// 			City:       "City " + strconv.Itoa(i),
+// 			State:      "State " + strconv.Itoa(i),
+// 			Profession: "Profession " + strconv.Itoa(i),
+// 		}
 
-		if err := conn.Create(&user).Error; err != nil {
-			log.Printf("Error inserting user %d: %v", i, err)
-		}
-	}
-}
+// 		if err := conn.Create(&user).Error; err != nil {
+// 			log.Printf("Error inserting user %d: %v", i, err)
+// 		}
+// 	}
+// }

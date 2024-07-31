@@ -6,6 +6,7 @@
     "typeface-roboto": "^1.1.13"
   },
   "devDependencies": {
-    "@iconify/react": "^5.0.1"
+    "@iconify/react": "^5.0.1",
+    "prettier": "^3.3.3"
   }
 }

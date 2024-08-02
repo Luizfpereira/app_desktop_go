@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/insert.css";
 import { CreateUser } from "../../wailsjs/go/main/App";
 
@@ -91,6 +91,11 @@ export default function InsertUser() {
     }
   }
 
+  function convertStringsToFloat(updatedInputs) {
+    updatedInputs.height = parseFloat(inputs.height);
+    updatedInputs.weight = parseFloat(inputs.weight);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -103,6 +108,7 @@ export default function InsertUser() {
         birth_date: isoDates[0],
         assessment_date: isoDates[1],
       };
+      convertStringsToFloat(updatedInputs);
       CreateUser(updatedInputs);
       setInputs({});
       setErrorMessages([]);
@@ -316,7 +322,9 @@ export default function InsertUser() {
             />
           </div>
         </div>
-        <button type="submit">Salvar</button>
+        <button type="submit" className="button">
+          Salvar
+        </button>
       </form>
     </div>
   );

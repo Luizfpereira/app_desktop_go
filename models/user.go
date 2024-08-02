@@ -17,9 +17,9 @@ type User struct {
 	Gender          *string    `json:"gender,omitempty"`
 	Profession      *string    `json:"profession,omitempty"`
 	Doctor          *string    `json:"doctor,omitempty"`
-	Weight          *float32   `json:"weight,omitempty"`
-	Heigth          *float32   `json:"height,omitempty"`
-	Imc             *float32   `json:"imc,omitempty"`
+	Weight          *float64   `json:"weight,omitempty"`
+	Heigth          *float64   `json:"height,omitempty"`
+	Imc             *float64   `json:"imc,omitempty"`
 	Polysomnography *string    `json:"polysomnography,omitempty"`
 	AssessmentDate  *time.Time `json:"assessment_date,omitempty"`
 }

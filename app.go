@@ -24,7 +24,7 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	db.InitDB()
+	// db.InitDB()
 	dbConn, err := db.GetConnection()
 	if err != nil {
 		log.Fatalf("error getting db connection: %v", err)
@@ -40,6 +40,15 @@ func (a *App) startup(ctx context.Context) {
 
 func (a *App) GetUsers(limit, offset int) ([]models.User, error) {
 	users, err := a.userService.GetUsers(limit, offset)
+	if err != nil {
+		log.Printf("error getting users: %v", err)
+		return nil, err
+	}
+	return users, err
+}
+
+func (a *App) GetAllUsers() ([]models.User, error) {
+	users, err := a.userService.GetAllUsers()
 	if err != nil {
 		log.Printf("error getting users: %v", err)
 		return nil, err

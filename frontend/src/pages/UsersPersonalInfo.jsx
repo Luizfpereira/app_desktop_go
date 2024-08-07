@@ -1,14 +1,11 @@
-import React, { useState } from "react"
-import Card from "../components/Card"
-import { getUsers } from "../test/users"
-import { Pagination } from 'antd';
-import { GetUsers } from '../../wailsjs/go/main/App'
+import React, { useState } from "react";
+import { useSearch } from "../components/SearchProvider";
 
 export default function UsersPersonalInfo() {
-
-    return (
-        <div style={{ color: "black" }}>
-            TesT
-        </div >
-    )
+  const { selectedResult } = useSearch();
+  return (
+    <div style={{ color: "black" }}>
+      {selectedResult ? selectedResult.name : "Nenhum resultado"}
+    </div>
+  );
 }

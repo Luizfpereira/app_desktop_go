@@ -12,11 +12,21 @@ type UserRepo struct {
 
 type UserRepository interface {
 	SearchUsers(limit, offset int) ([]models.User, error)
+	SearchAllUsers() ([]models.User, error)
 	Insert(user *models.User) (*models.User, error)
 }
 
 func NewUsersRepo(conn *gorm.DB) UserRepository {
 	return &UserRepo{conn: conn}
+}
+
+func (r *UserRepo) SearchAllUsers() ([]models.User, error) {
+	var users []models.User
+	result := r.conn.Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return users, nil
 }
 
 func (r *UserRepo) SearchUsers(limit, offset int) ([]models.User, error) {

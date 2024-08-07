@@ -3,6 +3,7 @@ package db
 import (
 	"log"
 	"os"
+	"path/filepath"
 	"respirar/models"
 	"sync"
 
@@ -20,8 +21,15 @@ var (
 )
 
 func InitDB() {
-	if _, err := os.Stat("./db/" + dbName); err != nil {
-		file, err := os.Create("./db/" + dbName) // Create SQLite file
+	absPath, err := filepath.Abs("./db/")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	dbPath := filepath.Join(absPath, dbName)
+
+	if _, err := os.Stat(dbPath); err != nil {
+		file, err := os.Create(dbPath) // Create SQLite file
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -33,6 +41,12 @@ func InitDB() {
 }
 
 func initializeConnection() {
+	// absPath, err := filepath.Abs("./db/")
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
+
+	// dbPath := filepath.Join(absPath, dbName)
 	db, err := gorm.Open(sqlite.Open("main.db"), &gorm.Config{})
 	if err != nil {
 		errInit = err

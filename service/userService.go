@@ -13,6 +13,7 @@ type service struct {
 type UserService interface {
 	GetUsers(limit, offset int) ([]models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
+	GetAllUsers() ([]models.User, error)
 }
 
 func NewUserService(userRepo repo.UserRepository) UserService {
@@ -21,6 +22,14 @@ func NewUserService(userRepo repo.UserRepository) UserService {
 
 func (s *service) GetUsers(limit, offset int) ([]models.User, error) {
 	users, err := s.userRepo.SearchUsers(limit, offset)
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (s *service) GetAllUsers() ([]models.User, error) {
+	users, err := s.userRepo.SearchAllUsers()
 	if err != nil {
 		return nil, err
 	}

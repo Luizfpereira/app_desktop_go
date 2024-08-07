@@ -4,4 +4,6 @@ import {models} from '../models';
 
 export function CreateUser(arg1:models.User):Promise<models.User>;
 
+export function GetAllUsers():Promise<Array<models.User>>;
+
 export function GetUsers(arg1:number,arg2:number):Promise<Array<models.User>>;

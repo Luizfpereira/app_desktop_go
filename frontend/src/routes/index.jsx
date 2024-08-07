@@ -2,7 +2,6 @@ import React from "react"
 import PathConstants from "./pathConstants"
 
 const InsertUser = React.lazy(() => import("../pages/InsertUser"))
-// other page components...
 const UsersPersonalInfo = React.lazy(() => import("../pages/UsersPersonalInfo"))
 const UsersAnamnesis = React.lazy(() => import("../pages/UsersAnamnesis"))
 const UsersHabits = React.lazy(() => import("../pages/UsersHabits"))

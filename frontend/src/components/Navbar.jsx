@@ -19,17 +19,19 @@ export default function Navbar() {
 
   useEffect(() => {
     async function fetchUsers() {
+      setIsLoading(true);
       try {
         const users = await GetAllUsers();
         setResults(users);
-        setIsLoading(false);
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchUsers();
-  }, [location.pathname]);
+  }, [location.pathname]); // Executa novamente quando a localização muda
 
   const handleSearch = (event) => {
     const value = event.target.value;
@@ -65,13 +67,18 @@ export default function Navbar() {
         </div>
         {location.pathname !== "/insert" && (
           <div className="search-outer">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleSearch}
-              placeholder="Pesquisar usuário..."
-              className="search"
-            />
+            {isLoading ? (
+              <div className="loading">Carregando...</div>
+            ) : (
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleSearch}
+                placeholder="Pesquisar usuário..."
+                className="search"
+                disabled={isLoading}
+              />
+            )}
             {isDropdownOpen && searchResults.length > 0 && (
               <div className="dropdown">
                 {searchResults.map((result) => (
